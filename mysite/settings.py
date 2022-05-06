@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 import os
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,10 +22,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-_#ixn)k$fg(cet#y(@r$owm2c3%lc7i2_7bw#h_8sd-649x!m)'
+#SECRET_KEY = 'django-insecure-_#ixn)k$fg(cet#y(@r$owm2c3%lc7i2_7bw#h_8sd-649x!m)'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+#DEBUG = True
+SECRET_KEY = config('SECRET_KEY')
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = ['localhost', '164.92.234.231', 'www.diveplanner.lol', 'diveplanner.lol']
 
@@ -46,7 +49,7 @@ INSTALLED_APPS = [
     'datetimepicker',
     'blog.apps.BlogConfig',
     'ckeditor',
-    'ckeditor_uploader'
+    'ckeditor_uploader',
 ]
 
 MIDDLEWARE = [
@@ -138,14 +141,22 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-AWS_ACCESS_KEY_ID = 'JCFOR6L3YV635P4IQBOC'
-AWS_SECRET_ACCESS_KEY = '9C30sUw1t/OAVn8OfreT1mcSPfb5pkPaY9QpB69zGY8'
-AWS_STORAGE_BUCKET_NAME = 'open-dp-spaces'
-AWS_S3_ENDPOINT_URL = 'https://fra1.digitaloceanspaces.com'
+#AWS_ACCESS_KEY_ID = 'JCFOR6L3YV635P4IQBOC'
+#AWS_SECRET_ACCESS_KEY = '9C30sUw1t/OAVn8OfreT1mcSPfb5pkPaY9QpB69zGY8'
+#AWS_STORAGE_BUCKET_NAME = 'open-dp-spaces'
+#AWS_S3_ENDPOINT_URL = 'https://fra1.digitaloceanspaces.com'
+#AWS_S3_OBJECT_PARAMETERS = {
+#    'CacheControl': 'max-age=86400',
+#}
+#AWS_LOCATION = 'open-dp-static'
+AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
+AWS_S3_ENDPOINT_URL = config('AWS_S3_ENDPOINT_URL')
 AWS_S3_OBJECT_PARAMETERS = {
     'CacheControl': 'max-age=86400',
 }
-AWS_LOCATION = 'open-dp-static'
+AWS_LOCATION = config('AWS_LOCATION')
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),

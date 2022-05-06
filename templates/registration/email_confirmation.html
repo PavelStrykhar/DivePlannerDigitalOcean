@@ -1,0 +1,9 @@
+{% autoescape off %}
+
+    Welcome to DivePlanner
+
+    Witam {{ name }}
+    Kliknij w poniższy link i dołącz do nas. Potwierdź swój adres e-mail.
+
+    Confirmation Link: http://{{ domain }}{% url 'activate' uidb64=uid token=token %}
+{% endautoescape %}

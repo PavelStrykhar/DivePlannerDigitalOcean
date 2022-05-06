@@ -1,0 +1,25 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+
+    
+{% if user.is_authenticated %}
+	{% if user.id == profile.user.id %}
+		<h1>Aktualizacja profilu</h1>
+		<br/><br/>
+
+		<div class="form-group">
+			<form method="POST" enctype="multipart/form-data">
+			{% csrf_token %}
+			{{ form.as_p }}
+			<button class="btn btn-primary">Aktualizuj</button>
+		</div>
+
+	{% else %}
+		Nie jesteś odpowiednim użytkownikiem do edycji tej strony
+	{% endif %}
+
+{% else %}
+	Nie masz dostępu do tej strony
+{% endif %}
+
+{% endblock %}

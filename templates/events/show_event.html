@@ -1,0 +1,127 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block content %}
+
+  <div class="card">
+    <div class="card-header">
+      <b>{{ event.name }}</b>
+    </div>
+    <img src="{{event.venue.image.url}}" class="card-img-top" alt="Wild Landscape"/>
+    <div class="card-body">
+      <h5 class="card-title"><b>{{ event.venue }}</b></h5>
+      <p class="card-text"><b>Szczegóły: </b>{{ event.description|safe }}</p>
+      <hr>
+      
+        <li class="list-group-item px-3"><b>Data rospoczęcia: </b>{{ event.event_date }}<br></li>
+        <li class="list-group-item px-3"><b>Adres prowadzenia: </b>{{ event.venue.address }}<br></li>
+        <li class="list-group-item px-3"><b>Kod pocztowy: </b>{{ event.venue.postcode }}<br></li>
+        <li class="list-group-item px-3"><b>Długość i szerokość geograficzna: </b>{{ event.venue.long }} {{ event.venue.lat }}<br></li>
+        <li class="list-group-item px-3"><b>Szczegóły lokalizacji: </b>{{ event.venue.details|safe }}<br></li>
+        <li class="list-group-item px-3"><a href="{% url 'show_profile' event.manager.profile.id %}"><b>Organizator: </b>{{ event.manager }}</a><br></li>
+        <!-- добавить чеки для одбренных и неодобренных челов -->
+        <li class="list-group-item px-3"><b>Uczestnicy: </b>
+          {% if event.participants %}
+              {% for participant in participant_list %}
+              {{participant.user.first_name}} {{participant.user.last_name}};
+              {% endfor %}
+          {% else %}
+          nikt nie zarejestrował się na to wydarzenie
+          {% endif %}
+          
+        </li>
+        <td></td>
+
+        <div id='map' style='width: 100%; height: 400px;'></div>
+        <script>
+        mapboxgl.accessToken = '{{ mapbox_access_token }}';
+        var map = new mapboxgl.Map({
+          container: 'map',
+          long : '{{ venue.long }}',
+          lat : '{{ venue.lat }}',
+          style: 'mapbox://styles/mapbox/streets-v10',
+          center: ['{{event.venue.long}}','{{event.venue.lat}}'],
+          zoom: 10
+        });
+        
+        var marker= new mapboxgl.Marker()
+          .setLngLat(['{{event.venue.long}}','{{event.venue.lat}}'])
+          .addTo(map)
+        </script>
+    </div>
+    <div class="card-footer text-muted">
+      2 days ago
+    </div>
+  </div>
+  <br>
+    {% if user.is_authenticated %}
+        
+    <div class="form-group">
+        <form action="" method=POST enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form }}
+            <button class="btn btn-primary btn-block " type="submit">Chce dolączyc</button>
+        </form>
+    </div>
+        {% else %}
+        <div class="alert alert-info" role="alert">
+            Musisz być zalogowany <a href="{% url 'signin' %}" class="alert-link">Zalogować</a>, aby dodać komentarz!
+        </div>
+    {% endif %}
+    
+  
+  <!-- <h2>Wiadomości({{event.messages.count}})</h2>
+  {% for message in event.messages.all %}
+  <article class="media">
+      
+    <div class="card">
+      <div class="card-header">
+          <img class="mr-3" style="height: 40px; width: 40px;" src="https://cdn.iconscout.com/icon/free/png-256/avatar-375-456327.png" alt="Generic placeholder image">
+          
+          <a href="{% url 'show_profile' chat.user.profile.id %}">{{chat.user.first_name}} {{chat.user.last_name}}</a>
+          <i class="fa fa-heart"></i>
+          
+          <p class="small text-muted">
+            <a href="{% url 'show_profile' chat.user.profile.id %}">Profil użytkownika</a>
+          </p>
+      </div>
+      <div class="card-body">
+        <blockquote class="blockquote mb-0">
+          <p>{{chat.message}}</p>
+          
+          <footer class="blockquote-footer"><cite title="Source Title">{{chat.date}}</cite></footer>
+        </blockquote>
+      </div>
+    </div> 
+    <br>
+  </article>    
+  {% empty %}
+  <div class="notification">
+      <p>Brak Wiadomości</p>
+  </div>
+  {% endfor %}
+  
+  {% if user.is_authenticated %}
+    {% if user.profile.id %}
+    <div class="form-group">
+      <form method="POST" action="">
+        {% csrf_token %}
+          {{form}}
+         
+        <br>
+        <button class="btn btn-primary btn-block " type="submit">Dodaj</button> 
+      </form>
+    </div>
+    <br>
+    {% else %}
+    <div class="alert alert-info" role="alert">
+      Musisz <a href="{% url 'create_profile' %}" class="alert-link">stworzyć profil</a> publiczny, aby dodać komentarz!
+    </div>
+    {% endif %}    
+  {% else %}
+    <div class="alert alert-info" role="alert">
+        Musisz być zalogowany. <a href="{% url 'signin' %}" class="alert-link">Zaloguj się</a>, aby dodać komentarz!
+    </div>
+  {% endif %} -->
+  
+{% endblock %}

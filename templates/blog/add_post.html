@@ -1,0 +1,30 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+
+    
+{% if user.is_authenticated %}
+	<h1>Dodawanie nowego posta</h1>
+	<br/>
+	<br/>
+	<div class="form-group">
+		<form method="POST" enctype="multipart/form-data">
+			{% csrf_token %}
+			{{ form.media }}
+			{{ form.as_p }}
+		<button class="btn btn-primary">Dodać</button>
+	</div>
+	<br>
+	<script>
+		var name = "{{ user.id }}";
+		
+		document.getElementById("elder").value = name;
+
+	</script>
+
+{% else %}
+	Nie masz dostępu do tej strony
+{% endif %}
+
+
+
+{% endblock %}

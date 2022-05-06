@@ -1,0 +1,26 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+
+    
+{% if user.is_authenticated %}
+	{% if user.id == post.author.id %}
+		<h1>Usuwanie posta</h1>
+		<br/>
+		<br/>
+		<div class="form-group">
+			<form method="POST">
+				{% csrf_token %}
+				<strong>Czy na pewno chcesz usunąć?</strong><br/><br/>
+				<button class="btn btn-danger">Usunąć</button>
+		</div>
+		{% else %}
+		Nie masz dostępu do tej strony
+		{% endif %}
+
+{% else %}
+
+Przepraszam! Musisz być zalogowany, aby wyświetlić tę stronę.</h2>
+
+{% endif %}
+
+{% endblock %}

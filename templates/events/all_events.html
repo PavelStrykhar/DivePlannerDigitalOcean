@@ -1,0 +1,132 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+
+    <div class="container">
+        
+        <div class="row justify-content-start">
+            <div class="col-4">
+                <h1>Wszystkie wydarzenia</h1>
+            </div>
+            <div class="col-4 col align-self-center">
+                {% if user.is_authenticated %}
+                <nav class="nav">
+                <a class="nav-link" href="{% url 'add_event' %}">Dodać wydarzenie</a>
+                </nav>
+                {% else %}
+                <nav class="nav">
+                <a class="nav-link disabled" href="#">Dodać wydarzenie</a>
+                </nav>
+                {% endif %}
+            </div>
+        </div>
+        
+    </div>
+
+    
+    {% for event in events %}
+        {% if event.event_status %}
+        <div class="container">
+        <div class="d-flex flex-row">
+            <div class="d-inline-flex flex-column" style="width:100%">
+                <div class="card-header">
+                    <h5>{{event}}</h5>
+                </div>
+                <div class="container" style="
+                    display: flex;
+                    flex-direction: row;">
+                    <div class="img-wrap" style="
+                        position: relative;
+                        flex: 0 0 30%;">
+                        {% if event.venue.image %}
+                        <img src="{{event.venue.image.url}}" class="img" alt="..." style="
+                            position: absolute;
+                            height: 100%;
+                            width: 100%;
+                            object-fit: cover;"
+                        >
+                        {% endif %}
+                    </div>
+                    <div class="d-inline-flex flex-column">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ event.venue }}</h5>
+                            <p class="card-text">
+                                <ul>
+                                    {% if event.short_description %}
+                                        <li><b>Krótki opis: </b>
+                                            {% autoescape on %}
+                                            {{ event.short_description|safe|linebreaks|truncatewords:50}}
+                                            {% endautoescape %}
+                                        </li>
+                                    {% endif %}
+                                    {% if event.event_date %}
+                                    <li><b>Data rospoczęcia: </b>{{ event.event_date }}</li>
+                                    {% endif %}
+                                    {% if event.manager %}
+                                    <li><b>Organizator: </b>{{ event.manager }}</li>
+                                    {% endif %}
+                                    {% if event.venue.details %}
+                                    <li><b>Szczegóły lokalizacji: </b>{{ event.venue.details|safe }}</li>
+                                    {% endif %}
+                                  
+                                </ul>
+                                
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="d-flex" style="justify-content: space-between">
+                        <div class="mr-auto p-2">
+                            <a href="{% url 'show_event' event.id %}" class="btn btn-outline-primary">Czytać</a>   
+                        </div>
+                        {% if user == event.manager %}
+                        <div class="p-2">
+                            <a href="{% url 'update_event' event.id %}" class="btn btn-outline-primary">Aktualizuj</a>
+                            <a href="{% url 'delete_event' event.id %}" class="btn btn-outline-danger">Usuń</a>
+                        </div>
+                        {% else %}
+                        
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <br>
+    
+        {% endif %}
+    {% endfor %}
+    
+{% else %}
+
+<div class="alert alert-info" role="alert">
+    Musisz być zalogowany <a href="{% url 'signin' %}" class="alert-link">Zalogować</a>, aby zobaczyć wydarzenia.!
+</div>
+{% endif %}
+
+<br><br>
+<nav aria-label="Page navigation example">
+    <ul class="pagination pagination-lg justify-content-center"> 
+  
+    {% if events.has_previous %}
+        <li class="page-item"><a class="page-link" href="?page=1">&laquo Pierwsza</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ events.previous_page_number }}">Poprzednia</a></li>      
+    {% endif %}
+
+    <!-- {% for i in nums %}
+        <li class="page-item"><a class="page-link" href="?page={{ forloop.counter }}">{{ forloop.counter }}</a></li>
+    {% endfor %} -->
+    
+    {% if events.has_next %}
+        <li class="page-item"><a class="page-link" href="?page={{ events.next_page_number }}">Następna</a></li>
+        <li class="page-item"><a class="page-link" href="?page={{ events.paginator.num_pages }}">Ostatnia &raquo</a></li>
+    {% endif %}
+  
+   </ul>
+</nav>
+<br/>
+{% endblock %}

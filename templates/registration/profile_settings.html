@@ -1,0 +1,23 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+
+    
+{% if user.is_authenticated %}
+	
+    <h1>Ustawienia profilu</h1>
+    <br/>
+    <br/>
+    <div class="form-group">
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn btn-primary">Aktualizuj</button>
+    </div>
+    <br>
+    
+{% else %}
+    Nie masz dostępu do tej strony
+{% endif %}
+
+
+{% endblock %}

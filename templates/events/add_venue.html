@@ -1,0 +1,19 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block content %}
+    <h1>Dodanie miejsca wydarzenia</h1>
+    <br>
+    {% if submitted %}
+        Twoja lokalizacja została pomyślnie przesłana
+    {% else %}
+    
+        <form action="" method=POST enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.media }}
+            {{ form.as_p }}
+            <input type="submit" value="Dodać" class="btn btn-primary">
+        </form>
+        <br>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block content %}
+{% if user.is_authenticated %}
+    <h1>Aktualizacja wydarzenia</h1>
+    </br>
+    <form action="" method=POST  enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.media }}
+        {{ form.as_p }}
+        <input type="submit" value="Aktualizuj" class="btn btn-success">
+    </form>
+    
+{% else %}
+
+<h1>Przepraszam! Musisz być zalogowany, aby wyświetlić tę stronę.</h1>
+
+<a href="{% url 'login' %}">Zaloguj się</a>
+{% endif %}       
+{% endblock %}

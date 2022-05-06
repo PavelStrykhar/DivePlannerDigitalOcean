@@ -1,0 +1,21 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block content %}
+    
+    <h1>Tworzenie wydarzenia</h1>
+    <br>
+    {% if submitted %}
+    Twoje wydarzenie zostało przesłane do zatwierdzenia, proszę czekać
+    {% else %}
+    
+    <form action="" method=POST  enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.media }}
+        {{ form.as_p }}
+        <input type="submit" value="Dodać" class="btn btn-primary">
+    </form>
+
+    
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,79 @@
+{% load static %}
+<footer class="footer text-center text-lg-start text-light" style="background-color:#0955c6; width: 100%; margin-top: auto;">
+<div class="container">
+    <div class="d-flex justify-content-between">
+    <!-- Section: Links  -->
+    <section class="">
+      <div class="container text-center text-md-start mt-5">
+        <!-- Grid row -->
+        <div class="row mt-3">
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+            <!-- Content -->
+            <h6 class="text-uppercase text-white fw-bold mb-4">
+              <i class="fas fa-gem me-3"></i>DIVEPLANNER
+            </h6>
+            <p>
+              Główną ideą tej strony jest zgromadzenie wszystkich fanów nurkowania, 
+              pływania, fanów różnego rodzaju surfingu i po prostu miłośników sportów wodnych. 
+              Aby mogli wspólnie negocjować i planować swoje spotkania.
+            </p>
+          </div>
+          
+          <!-- Grid column -->
+  
+          <!-- Grid column -->
+          <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+            <!-- Links -->
+            <h6 class="text-uppercase text-white fw-bold mb-4">
+              Menu
+            </h6>
+            <p>
+              <a href="{% url 'home' %}" class="text-reset">Nowości</a>
+            </p>
+            <p>
+              <a href="{% url 'all_events' %}" class="text-reset">Wydarzenia</a>
+            </p>
+            <p>
+              <a href="{% url 'all_venues' %}" class="text-reset">Lokalizacje</a>
+            </p>
+            {% if user.is_authenticated %}
+            <p>
+              <a href="{% url 'my_events' %}" class="text-reset">Moje wydarzenia</a>
+            </p>
+            {% endif %}
+            
+          </div>
+          <!-- Grid column -->
+  
+          <!-- Grid column -->
+          <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+            <!-- Links -->
+            <h6 class="text-uppercase text-white fw-bold mb-4">
+              Contact
+            </h6>
+            <p><i class="fas fa-home me-3"></i> Słupsk, Polska</p>
+            <p>
+              <i class="fas fa-envelope me-3"></i>
+              diveplanner.py@gmail.com
+            </p>
+            <p><i class="fas fa-phone me-3"></i> + 01 234 567 88</p>
+            <p><i class="fas fa-print me-3"></i> + 01 234 567 89</p>
+          </div>
+          <!-- Grid column -->
+        </div>
+        <!-- Grid row -->
+      </div>
+    </section>
+    <!-- Section: Links  -->
+</div>
+    <!-- Copyright -->
+    <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+      © 2021 Copyright:
+      <a class="text-reset fw-bold" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+    </div>
+    <!-- Copyright -->
+</div>
+
+</footer>
+  <!-- Footer -->

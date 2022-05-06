@@ -1,0 +1,62 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+	
+<h1>Wydarzenia w tej lokalizacji</h1>
+
+{% for event in events %}
+        {% if event.event_status %}
+        <div class="card">
+            <h5 class="card-header">{{ event }}</h5>
+            <div class="card-body">
+                <h5 class="card-title">{{ event.venue }}</h5>
+                <p class="card-text">
+                    <ul>
+                    {% if event.event_date %}
+                    <li><b>Data rospoczęcia: </b>{{ event.event_date }}</li>
+                    {% endif %}
+                    {% if event.description %}
+                        <li><b>Szczegóły: </b>{{ event.description }}</li>
+                    {% endif %}
+                    {% if event.manager %}
+                    <li><b>Organizator: </b>{{ event.manager }}</li>
+                    {% endif %}
+                    {% if event.venue.details %}
+                    <li><b>Szczegóły lokalizacji: </b>{{ event.venue.details }}</li>
+                    {% endif %}
+                    <!-- <li><b>Uczestnicy wydarzenia: </b><br>
+                        {% if participants %}
+                            {% for participant in participants %}
+                            {{participant.first_name}} {{participant.last_name}},
+                            {% endfor %}
+                        {% else %}
+                            nikt nie zarejestrował się na to wydarzenie
+                        {% endif %}
+                    </li> -->
+                    
+                    </ul>
+                    
+                </p>
+                <div class="card-footer text-muted">
+                    <div class="d-flex">
+                        <div class="mr-auto p-2">
+                            <a href="{% url 'show_event' event.id %}" class="btn btn-outline-primary">Czytać</a>
+                            
+                        </div>
+                        {% if user == event.manager %}
+                        <div class="p-2 justify-content-end">
+                            <a href="{% url 'update_event' event.id %}" class="btn btn-outline-primary">Aktualizuj</a>
+                            <a href="{% url 'delete_event' event.id %}" class="btn btn-outline-danger">Usuń</a>
+                        </div>
+                        {% else %}
+                        
+                        {% endif %}
+                    </div>
+                </div>   
+            </div>
+        </div>
+        <br>
+        {% endif %}
+    {% endfor %}
+	
+{% endblock %}

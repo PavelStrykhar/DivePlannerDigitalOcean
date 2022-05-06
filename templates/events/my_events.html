@@ -1,0 +1,153 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block content %}
+    <h2>Uczestniczę: </h2><hr><br>
+    {% for event in i_member %}
+        {% if event.event_status %}
+            <div class="container">
+            <div class="d-flex flex-row">
+                <div class="d-inline-flex flex-column" style="width:100%">
+                    <div class="card-header">
+                        <h5>{{event}}</h5>
+                    </div>
+                    <div class="container" style="
+                        display: flex;
+                        flex-direction: row;">
+                        <div class="img-wrap" style="
+                            position: relative;
+                            flex: 0 0 30%;">
+                            {% if event.venue.image %}
+                            <img src="{{event.venue.image.url}}" class="img" alt="..." style="
+                                position: absolute;
+                                height: 100%;
+                                width: 100%;
+                                object-fit: cover;"
+                            >
+                            {% endif %}
+                        </div>
+                        <div class="d-inline-flex flex-column">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ event.venue }}</h5>
+                                <p class="card-text">
+                                    <ul>
+                                        {% if event.short_description %}
+                                            <li><b>Krótki opis: </b>
+                                                {% autoescape on %}
+                                                {{ event.short_description|safe|linebreaks|truncatewords:50}}
+                                                {% endautoescape %}
+                                            </li>
+                                        {% endif %}
+                                        {% if event.event_date %}
+                                        <li><b>Data rospoczęcia: </b>{{ event.event_date }}</li>
+                                        {% endif %}
+                                        {% if event.manager %}
+                                        <li><b>Organizator: </b>{{ event.manager }}</li>
+                                        {% endif %}
+                                        {% if event.venue.details %}
+                                        <li><b>Szczegóły lokalizacji: </b>{{ event.venue.details|safe }}</li>
+                                        {% endif %}
+                                    </ul>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="d-flex" style="justify-content: space-between">
+                            <div class="mr-auto p-2">
+                                <a href="{% url 'show_event' event.id %}" class="btn btn-outline-primary">Czytać</a>   
+                            </div>
+                            {% if user == event.manager %}
+                            <div class="p-2">
+                                <a href="{% url 'update_event' event.id %}" class="btn btn-outline-primary">Aktualizuj</a>
+                                <a href="{% url 'delete_event' event.id %}" class="btn btn-outline-danger">Usuń</a>
+                            </div>
+                            {% else %}
+                            
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            <br>
+        
+        {% endif %}
+    {% endfor %}
+    
+    
+    <h2>Zorganizowałem: </h2><hr><br>
+    {% for event in events %}
+        {% if event.event_status %}
+        <div class="container">
+        <div class="d-flex flex-row">
+            <div class="d-inline-flex flex-column" style="width:100%">
+                <div class="card-header">
+                    <h5>{{event}}</h5>
+                </div>
+                <div class="container" style="
+                    display: flex;
+                    flex-direction: row;">
+                    <div class="img-wrap" style="
+                        position: relative;
+                        flex: 0 0 30%;">
+                        {% if event.venue.image %}
+                        <img src="{{event.venue.image.url}}" class="img" alt="..." style="
+                            position: absolute;
+                            height: 100%;
+                            width: 100%;
+                            object-fit: cover;"
+                        >
+                        {% endif %}
+                    </div>
+                    <div class="d-inline-flex flex-column">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ event.venue }}</h5>
+                            <p class="card-text">
+                                <ul>
+                                    {% if event.short_description %}
+                                        <li><b>Krótki opis: </b>
+                                            {% autoescape on %}
+                                            {{ event.short_description|safe|linebreaks|truncatewords:50}}
+                                            {% endautoescape %}
+                                        </li>
+                                    {% endif %}
+                                    {% if event.event_date %}
+                                    <li><b>Data rospoczęcia: </b>{{ event.event_date }}</li>
+                                    {% endif %}
+                                    {% if event.manager %}
+                                    <li><b>Organizator: </b>{{ event.manager }}</li>
+                                    {% endif %}
+                                    {% if event.venue.details %}
+                                    <li><b>Szczegóły lokalizacji: </b>{{ event.venue.details|safe }}</li>
+                                    {% endif %}
+                                  
+                                </ul>
+                                
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="d-flex" style="justify-content: space-between">
+                        <div class="mr-auto p-2">
+                            <a href="{% url 'show_event' event.id %}" class="btn btn-outline-primary">Czytać</a>   
+                        </div>
+                        {% if user == event.manager %}
+                        <div class="p-2">
+                            <a href="{% url 'update_event' event.id %}" class="btn btn-outline-primary">Aktualizuj</a>
+                            <a href="{% url 'delete_event' event.id %}" class="btn btn-outline-danger">Usuń</a>
+                        </div>
+                        {% else %}
+                        
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <br>
+        {% endif %}
+    {% endfor %}
+    
+{% endblock %}

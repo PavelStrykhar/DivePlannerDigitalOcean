@@ -1,0 +1,91 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+
+<h1>Panel Administratora</h1>
+<br/><br/><br/>
+<br action="" method=POST>
+	{% csrf_token %}
+
+<div class="card">
+  <div class="card-header">
+    Posty - Wydarzenie - Lokalizacja - Liczba użytkowników
+  </div>
+  <div class="card-body">
+    <p class="card-text">Liczba postów: {{post_count}}</p>
+    <p class="card-text">Liczba wydarzeń: {{event_count}}</p>
+    <p class="card-text">Liczba lokalizacji: {{venue_count}}</p>
+    <p class="card-text">Liczba użytkowników: {{user_count}}</p>
+    
+  </div>
+</div>
+<br/>
+<a href="{% url 'blog:add_post' %}" class="btn btn-sm btn-primary">Dodać post</a>
+<br/>
+<br/>
+
+<table class="table table-striped table-hover table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Lokalizacja</th>
+      <th scope="col">Wydarzenia</th>
+    </tr>
+  </thead>
+  <tbody>
+{% for venue in all_venues %}
+    <tr>
+      <td>
+      <a href="{% url 'show_venue' venue.id %}">{{ venue }}</a>
+    </td>
+      <td>
+        <a href="{% url 'venue_events' venue.id %}" class="btn btn-sm btn-primary">Lista wydarzeń</a>
+      </td>
+    </tr>
+{% endfor %}
+
+
+ </tbody>
+</table>
+
+
+
+<br/><br/>
+<h1>Formularz zatwierdzenia wydarzenia</h1>
+<br/>
+<table class="table table-striped table-hover table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Wydarzenie</th>
+      <th scope="col">Status</th>
+    </tr>
+  </thead>
+  <tbody>
+{% for event in all_events %}
+  	<tr>
+  		<td>{{ event }}</td>
+  		<td>
+  			{% if event.event_status %}
+  			<div class="form-check">
+  				<input class="form-check-input" type="checkbox" checked="checked" value={{event.id}} name="boxes">
+  			</div>
+  			{% else %}
+  			<div class="form-check">
+  				<input class="form-check-input" type="checkbox" value={{event.id}} name="boxes">
+  			</div>
+  			{% endif %}
+
+  		</td>
+  	</tr>
+{% endfor %}
+
+
+ </tbody>
+</table>
+
+<br/>
+<button class='btn btn-primary' type="submit">Aktualizuj</button>
+<br/><br/>
+
+
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+
+    
+{% if user.is_authenticated %}
+	{% if user.id == post.author.id %}
+
+		<h1>Aktualizacja posta</h1>
+		<br/>
+		<br/>
+		<div class="form-group">
+			<form method="POST" enctype="multipart/form-data">
+				{% csrf_token %}
+				{{ form.media }}
+				{{ form.as_p }}
+			<button class="btn btn-primary">Aktualizuj</button>
+		</div>
+	{% else %}
+	Nie masz dostępu do tej strony
+	{% endif %}		
+{% else %}
+<h2>Musisz być zalogowany, aby wyświetlić tę stronę.</h2>
+{% endif %}
+
+{% endblock %}

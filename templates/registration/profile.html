@@ -1,0 +1,37 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block content %}
+
+    
+
+<h1>Profil użytkownika</h1>
+<br/>
+<div class="container">
+<div class="d-flex flex-row">
+  <div class="d-inline-flex">
+    {% if page_user.profile_image %}
+      <img src="{{ page_user.profile_image.url }}" style="width: 400px; height: 400px;" class="card-img">
+    {% else %}
+      <img src="https://cdn.iconscout.com/icon/free/png-256/avatar-375-456327.png" style="width: 400px; height: 400px;" class="card-img">
+    {% endif %}  
+    
+  </div>
+  <div class="d-inline-flex flex-column">
+    <h3 class="card-title" style="margin-left: 10%;">
+      {{ page_user.user.first_name }} {{ page_user.user.last_name }}
+    </h3>
+    
+      
+  
+    <p class="card-text" style="margin-left: 5%;">
+      {{ page_user.biography }}
+    </p>
+  </div>
+</div>
+</div>
+<br><br>
+
+
+
+{% endblock %}

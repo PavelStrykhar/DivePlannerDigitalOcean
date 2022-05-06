@@ -1,0 +1,33 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+
+{% block content %}
+	
+	<!-- карусель -->
+	<!-- {% include 'blog/carusel.html' %}
+	{% block carusel %}
+	{% endblock %} -->
+	
+<br><br>
+	<div class="row">
+
+		<div class="col-md-8 col-xl-9">
+			<div class="posts">
+				{% include 'blog/posts.html' %}
+			</div>
+		</div>
+		
+		<div class="col-md-4 col-xl-3">
+			<div class="sidebar">
+				{% include 'blog/search.html' %}
+				<br><br>
+				{% include 'blog/top-posts.html' %}
+			</div>
+		</div>
+		{% include 'blog/pagination.html' %}
+		<br>
+	</div>
+	<br>
+	
+{% endblock %}

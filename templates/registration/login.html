@@ -1,0 +1,25 @@
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<div class="conteiner">
+	<h1>Login</h1>
+  <hr>
+  <br>
+		<form action="" method=POST>
+			{% csrf_token %}
+		
+      <div class="mb-3">
+        <input type="text" class="form-control" style="width: 20%;" name="username" placeholder="Username">
+      </div>
+      <div class="mb-3"> 
+        <input type="password" class="form-control" style="width: 20%;" name="password" placeholder="Hasło">
+        <a href="{% url 'password_reset' %}">Nie pamiętasz hasła?</a>
+      </div>
+
+			<input type="submit" value="Zaloguj się" class="btn btn-primary" style="width: 20%;">
+
+		</form>
+		
+</div>
+<br/><br/>	
+{% endblock %}

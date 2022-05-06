@@ -1,0 +1,76 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block content %}
+  {% if user.is_authenticated %}
+    <div class="container">
+      <div class="row justify-content-start">
+        <div class="col-4">
+            <h1>Lokalizacje wydarzeń</h1>
+        </div>
+        
+        <div class="col-4 col align-self-center">
+            {% if user.is_authenticated %}
+            <nav class="nav">
+              <a class="nav-link" href="{% url 'add_venue' %}">Dodać miejsce spotkania</a>
+            </nav>
+            
+            {% else %}
+            <nav class="nav">
+              <a class="nav-link disabled" href="#">Dodać miejsce spotkania</a>
+            </nav>
+            {% endif %}
+        </div>
+      </div>
+    </div>  
+    </br>
+    <form class="d-flex" method=POST action="{% url 'search_venues' %}">
+      {% csrf_token %}
+
+      <input class="form-control me-2" type="search" placeholder="Szukasz lokalizacji?" aria-label="Search" name="searched">
+      <button class="btn btn-primary me-5" type="submit">Szukaj</button>
+    </form>
+    <table class="table align-middle">
+      <thead>
+        <tr>
+          <th scope="col">№</th>
+          <th scope="col">Lokalizacja</th>
+          <th scope="col">Adres</th>
+          <th scope="col">Wydarzenia</th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for venue in venue_list %}
+        <tr>
+          <th scope="row">{{venue.id}}</th>
+          <td><a href="{% url 'show_venue' venue.id %}">{{ venue }}</td>
+          <td>{{ venue.address }}</td>
+          
+          <td>
+            <a href="{% url 'venue_events' venue.id %}" class="btn btn-sm btn-secondary">Lista wydarzeń</a>
+          </td>
+          <td>
+          {% if user.id == venue.owner %}
+          <!-- facepalm -->
+          <a href="{% url 'update_venue' venue.id %}" class="btn btn-primary">Aktualizuj</a>
+          <a href="{% url 'delete_venue' venue.id %}" class="btn btn-danger">Usuń</a>
+          {% else %}
+          <a href="{% url 'update_venue' venue.id %}" class="btn btn-primary disabled" aria-disabled="true">Aktualizuj</a>
+          <a href="{% url 'delete_venue' venue.id %}" class="btn btn-danger disabled" aria-disabled="true">Usuń</a>
+          
+          {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <br>
+  {% else %}
+
+    <div class="alert alert-info" role="alert">
+        Musisz być zalogowany. <a href="{% url 'signin' %}" class="alert-link">Zalogować</a>, aby zobaczyć lokalizacje wydarzeń!
+    </div>
+  {% endif %}
+
+{% endblock %}

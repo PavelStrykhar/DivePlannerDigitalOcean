@@ -47,26 +47,32 @@ def signup(request):
 	
 	if request.method == 'POST':
 		username = request.POST['username']
-		first_name = request.POST.get('first_name')
-		last_name = request.POST.get('last_name')
-		email = request.POST.get('email')
-		password1 = request.POST.get('password1')
-		password2 = request.POST.get('password2')
+		first_name = request.POST['first_name']
+		last_name = request.POST['last_name']
+		email = request.POST['email']
+		password1 = request.POST['password1']
+		password2 = request.POST['password2']
 		
 		if User.objects.filter(username=username):
-			messages.error(request, "Username already exist. Please try some ather username")
-			return redirect('home')
+			messages.error(request, "Nazwa użytkownika już istnieje. Proszę spróbować innej nazwy użytkownika")
+			return redirect('signup')
 
-		if len(username)>10:
-			messages.error(request, "Username must be under 10 characters")
-        
+		if len(username)<5:
+			messages.error(request, "Nazwa użytkownika musi mieć co najmniej 5 znaków")
+			return redirect('signup') 
+  
+		if len(password1)<6:
+			messages.error(request, "Hasło musi mieć co najmniej 6 znaków") 
+			return redirect('signup') 
+			
 		if password1 != password2:
-			messages.error(request, "Passwords didn't match")
+			messages.error(request, "Hasła się nie zgadzają")
+			return redirect('signup')
 		
 		if not username.isalnum():
-			messages.error(request, "Username must be Alpfa-Numeric")
-			return redirect('home')
-  		
+			messages.error(request, "Nazwa użytkownika musi być alfanumeryczna")
+			return redirect('signup')
+     
 		myuser = User.objects.create_user(username, email, password1)
 		myuser.first_name = first_name
 		myuser.last_name = last_name

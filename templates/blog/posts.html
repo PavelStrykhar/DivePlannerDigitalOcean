@@ -4,40 +4,39 @@
 	
 	
 {% for post in posts %}
-	<div class="d-flex flex-row">
-		<div class="d-inline-flex">
-			
-			{% if post.image %}
-			<img src="{{post.image.url}}" class="card-img" style="width: 400px; height: 400px;" alt="...">
-			{% endif %}
-		</div>
-		<div class="d-inline-flex flex-column">
-			<div class="card-header">
-				<a href="{% url 'show_profile' post.author.profile.id %}">Autor: {{post.author}}</a>
-			</div>
-			<div class="card-body">
-			<h5 class="card-title">{{post.title}}</h5>
-			<p class="card-text">
+<article class="post">
+	<header>
+		<div class="title">
+			<h2><a href="{% url 'blog:post-detail' post.pk %}">{{post.title}}</a></h2>
+			<p>
 				{% autoescape on %}
-				{{post.short_content|safe|truncatewords:40}}
+				{{post.short_content|safe|truncatewords:20}}
 				{% endautoescape %}
 			</p>
-			<p class="link-read-post">
-				<a href="{% url 'blog:post-detail' post.pk %}">
-					Czytaj więcej
-				</a>
-				
-			</p>
-			</div>
-			<div class="card-footer text-muted">
-				{{post.time_create}} - {{count_likes}}
-				<!-- <form action="#" method="post">
-					{% csrf_token %}
-					<button type="submit", name="post_id", value="{{ post_id }}", class="btn btn-primary btn-sm">Like</button>
-				</form> -->
-			</div>
 		</div>
-	</div>
+		<div class="meta">
+			<time class="published" datetime="2015-11-01">{{post.time_create}}</time>
+			{% if user.profile %}
+			<a href="{% url 'show_profile' post.author.profile.id %}" class="author"><span class="name">{{post.author}}</span><img src="#" alt=""/></a>
+			{% else %}
+			<a href="" class="author"><span class="name">{{post.author}}</span><img src="#" alt=""/></a>
+			{% endif %}
+		</div>
+	</header>
+	{% if post.image %}
+	<a href="#" class="image featured"><img src="{{post.image.url}}" alt="" /></a>
+	{% endif %}
+	<p>{{post.content|safe|linebreaks|truncatewords:20}}</p>
+	<footer>
+		<ul class="actions">
+			<li><a href="{% url 'blog:post-detail' post.pk %}" class="button big">Czytać dalej</a></li>
+		</ul>
+		<ul class="stats">
+			<li><a href="#" class="icon fa-heart">28</a></li>
+			<li><a href="#" class="icon fa-comment">128</a></li>
+		</ul>
+	</footer>
+</article>
 	<br>
 	<br>				
 {% empty %}

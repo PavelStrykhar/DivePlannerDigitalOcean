@@ -5,12 +5,16 @@
 <h6 class="sidebar-title">Popularne posty</h6>
 {% for post in top_posts %}
 
-<div class="card" style="width: 18rem;">
-    <img class="card-img-top" src="{{post.image.url}}" style="height: 150px; width: 100%;" alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">{{post.title}}</h5>
-        <a href="{% url 'blog:post-detail' post.pk %}" class="btn btn-primary btn-sm">Czytaj więcej</a>
-    </div>
+<div class="mini-posts">
+
+  <!-- Mini Post -->
+    <article class="mini-post">
+      <header>
+        <h3><a href="{% url 'blog:post-detail' post.pk %}">{{post.title}}</a></h3>
+        <time class="published">{{ post.time_create }} </time>
+      </header>
+      <a href="{% url 'blog:post-detail' post.pk %}" class="image"><img src="{{post.image.url}}" alt="" /></a>
+    </article>
 </div>
 <br>
 {% empty %}

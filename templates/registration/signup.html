@@ -1,49 +1,60 @@
 {% extends 'blog/base.html' %}
-
+{% load static %}
 {% block content %}
 
-    <h1>Rejestracja</h1>
-    <hr>
-    <br>    
-    <form action="signup" method="POST">
-        {% csrf_token %}
-        
-        <form>
-            
-            <div class="row">
-                <div class="col">
-                    <input type="text" class="form-control" id="username" name="username" placeholder="Utwórz nazwę użytkownika" required>
-                </div>
-                <div class="col">
-                    <input type="email" class="form-control" id="email" name="email" placeholder="E-mail" required>
-                </div> 
-            </div>
-            <br>
-            <div class="row">
-                <div class="col">
-                    <input type="text" class="form-control"  id="first_name" name="first_name" placeholder="Imię" required>
-                </div>
-                <div class="col">
-                    <input type="text" class="form-control"  id="last_name" name="last_name" placeholder="Nazwisko" required>
-                </div>
-            </div>
-            <br>
-            <div class="row">
-                <div class="col">
-                    <input type="password" class="form-control" id="password1" name="password1" placeholder="Hasło" required>
-                </div>
-                <div class="col">
-                    <input type="password" class="form-control" id="password2" name="password2" placeholder="Wprowadź ponownie hasło" required>
-                </div>
-            </div>  
-            <br>
-           
-            <input type="submit" value="Zarejestruj się" class="btn btn-primary" style="width: 20%;">
-            
-            
-            
-            
-        </form>
-    
+<style type="text/css">
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+}
+.form-signin .checkbox {
+  font-weight: 400;
+}
+.form-signin .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: 10px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="text"] {
+  margin-bottom: 10px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 5px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+.h3 {
+    text-align: center;
+}
+
+</style>
+
+  <form class="form-signin" action="signup" method="POST">
+    {% csrf_token %}
+    <h1 class="h3 mb-3 font-weight-normal" style="color: white;">Rejestracja</h1><hr>
+    <input type="text" class="form-control" id="username" name="username" placeholder="Nazwa użytkownika" required autofocus>
+    <input type="email" class="form-control" id="email" name="email" placeholder="E-mail" required>
+    <input type="text" class="form-control"  id="first_name" name="first_name" placeholder="Imię" required>
+    <input type="text" class="form-control"  id="last_name" name="last_name" placeholder="Nazwisko" required>
+    <input type="password" class="form-control" id="password1" name="password1" placeholder="Hasło" required>
+    <input type="password" class="form-control" id="password2" name="password2" placeholder="Wprowadź ponownie hasło" required><br>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Zarejestruj się</button>
+  </form>
+
+<br>    
 	
 {% endblock %}

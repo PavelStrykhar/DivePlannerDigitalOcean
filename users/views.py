@@ -84,7 +84,7 @@ def signup(request):
 
 		#Email-message
 		subject = "Welcome to Diveplanner - Django Login"
-		message = "Hello " + myuser.first_name + "\n" + "Welcome to Diveplanner \n Thank you for visiting our website \n We have also sent you a confirmation email, please confirm your email address in order to activate your account. \n\n Thanking You \n Pavel Strykhar"
+		message = "Hello " + myuser.first_name + "\n" + "Diveplanner wita \n Dziękujemy za odwiedzenie naszej strony internetowej \n Wysłaliśmy Ci również wiadomość e-mail z potwierdzeniem, potwierdź swój adres e-mail w celu aktywacji konta. \n\n Dziękujemy \n Pavel Strykhar"
 		from_email = settings.EMAIL_HOST_USER
 		to_list = [myuser.email]
 		send_mail(subject, message, from_email, to_list, fail_silently = True)

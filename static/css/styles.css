@@ -1,3 +1,18 @@
+h1, h2, h3, h4, h5, h6 {
+	color: white;
+}
+a {
+	color: white;
+}
+th, td {
+	color: white;
+}
+a.nav-link, label {
+	color: white;
+}
+th.column-color {
+	color: white;
+}
 .logo-top {
   width: 100px;
   height: 40px;
@@ -79,7 +94,7 @@
 }
 
 .text-3 {
-  color: rgb(10, 77, 125);
+  color: rgb(255, 255, 255);
   /*font-family: arial;*/
   font-size: 2em;
   text-align: center;
@@ -125,12 +140,12 @@ ul.mainmenu li.logo {margin: 0;}
 ul.mainmenu li.last {float: right;}
 
 ul.mainmenu li a {
-	color: #000000;
+	color: #ffffff;
 	text-decoration: none;
 	
 }
 ul.mainmenu li a:hover {
-	color: #1268d8;
+	color: #d2e6ff;
 }
 .carousel-inner{
   width: 100%;
@@ -228,7 +243,7 @@ a.ext {
   padding-right: 14px;
 }
 a {
-  color: #1D67A4;
+  color: white;
 }
 .detail-content{
   overflow-wrap: break-word;
@@ -510,7 +525,7 @@ a {
 }
 
 .comment-box .comment-name a {
-	color: #283035;
+	color: #d0edff;
 }
 
 .comment-box .comment-head span {

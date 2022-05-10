@@ -6,7 +6,7 @@
   
   <div class="card mb-3">
     {% if post.image.url %}
-      <img src="{{post.image.url}}" class="card-img-top rounded" style="height: 800px;" alt="Wild Landscape"/>
+      <img src="{{post.image.url}}" class="cimage featured" alt="Wild Landscape"/>
     {% endif %}
     
     <div class="card-body">
@@ -16,10 +16,17 @@
       </p>
       <p class="card-text">
         
+        {% if user.profile %}
         <small>Opublikowane przez: 
           <a href="{% url 'show_profile' post.author.profile.id %}">{{ post.author.first_name }} {{ post.author.last_name }}</a> - 
           {{ post.time_create }}  
         </small>
+        {% else %}
+        <small>Opublikowane przez: 
+          <a href="#">{{ post.author.first_name }} {{ post.author.last_name }}</a> - 
+          {{ post.time_create }}  
+        </small>
+        {% endif %}
       </p>
     </div>
     {% if user.is_authenticated %}
@@ -115,7 +122,7 @@
     <br>
     {% else %}
     <div class="alert alert-info" role="alert">
-      Musisz <a href="{% url 'create_profile' %}" class="alert-link">stworzyć profil</a> publiczny, aby dodać komentarz!
+      Musisz <a href="{% url 'create_profile' %}" class="alert-link">aktualizować swój profil</a>, aby dodać komentarz!
     </div>
     {% endif %}    
   {% else %}

@@ -30,21 +30,22 @@
       <input class="form-control me-2" type="search" placeholder="Szukasz lokalizacji?" aria-label="Search" name="searched">
       <button class="btn btn-primary me-5" type="submit">Szukaj</button>
     </form>
+    <br>
     <table class="table align-middle">
       <thead>
         <tr>
-          <th scope="col">№</th>
-          <th scope="col">Lokalizacja</th>
-          <th scope="col">Adres</th>
-          <th scope="col">Wydarzenia</th>
-          <th scope="col"></th>
+          <th scope="col" class="column-color">№</th>
+          <th scope="col" class="column-color">Lokalizacja</th>
+          <th scope="col" class="column-color">Adres</th>
+          <th scope="col" class="column-color">Wydarzenia</th>
+          <th scope="col" class="column-color"></th>
         </tr>
       </thead>
       <tbody>
         {% for venue in venue_list %}
         <tr>
           <th scope="row">{{venue.id}}</th>
-          <td><a href="{% url 'show_venue' venue.id %}">{{ venue }}</td>
+          <td><a href="{% url 'show_venue' venue.id %}" style="color: white;">{{ venue }}</td>
           <td>{{ venue.address }}</td>
           
           <td>

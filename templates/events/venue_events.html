@@ -6,55 +6,51 @@
 
 {% for event in events %}
         {% if event.event_status %}
-        <div class="card">
-            <h5 class="card-header">{{ event }}</h5>
-            <div class="card-body">
-                <h5 class="card-title">{{ event.venue }}</h5>
-                <p class="card-text">
-                    <ul>
-                    {% if event.event_date %}
-                    <li><b>Data rospoczęcia: </b>{{ event.event_date }}</li>
-                    {% endif %}
-                    {% if event.description %}
-                        <li><b>Szczegóły: </b>{{ event.description }}</li>
-                    {% endif %}
-                    {% if event.manager %}
-                    <li><b>Organizator: </b>{{ event.manager }}</li>
-                    {% endif %}
-                    {% if event.venue.details %}
-                    <li><b>Szczegóły lokalizacji: </b>{{ event.venue.details }}</li>
-                    {% endif %}
-                    <!-- <li><b>Uczestnicy wydarzenia: </b><br>
-                        {% if participants %}
-                            {% for participant in participants %}
-                            {{participant.first_name}} {{participant.last_name}},
-                            {% endfor %}
-                        {% else %}
-                            nikt nie zarejestrował się na to wydarzenie
-                        {% endif %}
-                    </li> -->
+        <article class="post">
+            <header>
+                <div class="title">
+                    <h2><a href="{% url 'show_event' event.id %}">{{event}}</a></h2>
+                    <p>
+                        {% autoescape on %}
+                        {{ event.venue.details|safe|truncatewords:20}}
+                        {% endautoescape %}
+                    </p>
+                </div>
+                <div class="meta">
                     
-                    </ul>
-                    
-                </p>
-                <div class="card-footer text-muted">
-                    <div class="d-flex">
-                        <div class="mr-auto p-2">
-                            <a href="{% url 'show_event' event.id %}" class="btn btn-outline-primary">Czytać</a>
-                            
-                        </div>
-                        {% if user == event.manager %}
+                    <a href="" class="published"><span class="name">{{ event.venue }}</span></a>
+                    <time class="published" datetime="2015-11-01">{{ event.event_date }}</time>
+                    {% if user.profile %}
+                    <a href="{% url 'show_profile' post.author.profile.id %}" class="author"><span class="name">{{ event.manager }}</span><img src="#" alt=""/></a>               
+                    {% else %}
+                    <a href="" class="author"><span class="name">{{ event.manager }}</span><img src="#" alt=""/></a>
+                    {% endif %}
+                </div>
+            </header>
+            {% if event.venue.image %}
+            <a href="#" class="image featured"><img src="{{event.venue.image.url}}" alt="" /></a>
+            {% endif %}
+            <p>{{ event.short_description|safe|linebreaks|truncatewords:50}}</p>
+            <footer>
+                <ul class="actions">
+                    <li><a href="{% url 'show_event' event.id %}" class="button big">Czytać dalej</a></li>
+                    {% if user == event.manager %}
                         <div class="p-2 justify-content-end">
                             <a href="{% url 'update_event' event.id %}" class="btn btn-outline-primary">Aktualizuj</a>
                             <a href="{% url 'delete_event' event.id %}" class="btn btn-outline-danger">Usuń</a>
                         </div>
-                        {% else %}
-                        
-                        {% endif %}
-                    </div>
-                </div>   
-            </div>
-        </div>
+                    {% else %}
+                    
+                    {% endif %}
+                </ul>
+            </footer>
+        </article>
+        
+        
+        
+        
+        
+        
         <br>
         {% endif %}
     {% endfor %}

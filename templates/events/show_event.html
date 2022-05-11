@@ -18,7 +18,11 @@
         <li class="list-group-item px-3"><b>Kod pocztowy: </b>{{ event.venue.postcode }}<br></li>
         <li class="list-group-item px-3"><b>Długość i szerokość geograficzna: </b>{{ event.venue.long }} {{ event.venue.lat }}<br></li>
         <li class="list-group-item px-3"><b>Szczegóły lokalizacji: </b>{{ event.venue.details|safe }}<br></li>
+        {% if event.manager.profile.id %}
         <li class="list-group-item px-3"><a href="{% url 'show_profile' event.manager.profile.id %}"><b>Organizator: </b>{{ event.manager }}</a><br></li>
+        {% else %}
+        <li class="list-group-item px-3"><b>Organizator: </b>{{ event.manager }}</a><br></li>
+        {% endif %}
         <!-- добавить чеки для одбренных и неодобренных челов -->
         <li class="list-group-item px-3"><b>Uczestnicy: </b>
           {% if event.participants %}

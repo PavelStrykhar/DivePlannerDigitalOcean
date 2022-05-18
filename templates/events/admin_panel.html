@@ -1,5 +1,5 @@
 {% extends 'blog/base.html' %}
-
+{% load static %}
 {% block content %}
 
 
@@ -39,7 +39,7 @@
       <a href="{% url 'show_venue' venue.id %}">{{ venue }}</a>
     </td>
       <td>
-        <a href="{% url 'venue_events' venue.id %}" class="btn btn-sm btn-primary">Lista wydarzeń</a>
+        <a href="{% url 'venue_events' venue.id %}" class="btn btn-sm btn-primary" style="color: white;">Lista wydarzeń</a>
       </td>
     </tr>
 {% endfor %}

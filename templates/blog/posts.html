@@ -16,7 +16,7 @@
 		</div>
 		<div class="meta">
 			<time class="published" datetime="2015-11-01">{{post.time_create}}</time>
-			{% if user.profile %}
+			{% if post.user.profile %}
 			<a href="{% url 'show_profile' post.author.profile.id %}" class="author"><span class="name">{{post.author}}</span><img src="#" alt=""/></a>
 			{% else %}
 			<a href="" class="author"><span class="name">{{post.author}}</span><img src="#" alt=""/></a>

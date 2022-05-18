@@ -52,8 +52,9 @@ class Event(models.Model):
 class Chat(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
-    message = models.TextField(verbose_name='message')
-    event = models.ForeignKey('Event', related_name='chat', on_delete=models.CASCADE)
+    message = models.TextField()
+    event = models.ForeignKey('Event', related_name='messages', on_delete=models.CASCADE)
     
+
     def __str__(self):
-        return self.user.username + ' | ' + str(self.message) + ' | ' + str(self.date) + ' | ' + str(self.event)
+        return str(self.user) + ' | ' + str(self.event.name) + ' | ' + str(self.date) + ' | ' + str(self.message)

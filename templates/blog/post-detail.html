@@ -17,8 +17,12 @@
       <p class="card-text">
         
         {% if user.profile %}
-        <small>Opublikowane przez: 
+        <small>Opublikowane przez:
+          {% if post.author.profile %} 
           <a href="{% url 'show_profile' post.author.profile.id %}">{{ post.author.first_name }} {{ post.author.last_name }}</a> - 
+          {% else %}
+          {{ post.author.first_name }} {{ post.author.last_name }} -
+          {% endif %}
           {{ post.time_create }}  
         </small>
         {% else %}
@@ -85,7 +89,7 @@
         {% if comment.user.profile.profile_image %}
           <img class="mr-3" style="height: 40px; width: 40px;" src="{{ comment.user.profile.profile_image.url }}" alt="">
         {% else %}
-          <img style="height: 40px; width: 40px;" src="https://cdn.iconscout.com/icon/free/png-256/avatar-375-456327.png" class="card-img">
+          <img style="height: 40px; width: 40px;" src="https://cdn.iconscout.com/icon/free/png-64/user-3604612-3005548.png" class="card-img">
         {% endif %}  
           <!-- facepalm -->
           <a href="{% url 'show_profile' comment.user.profile.id %}">{{comment.user.first_name}} {{comment.user.last_name}}</a>

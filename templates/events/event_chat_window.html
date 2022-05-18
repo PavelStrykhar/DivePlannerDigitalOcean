@@ -1,0 +1,75 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block content %}
+
+<section>
+    <div class="container py-5">
+  
+      <div class="row d-flex justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-6">
+  
+          <div class="card" id="chat2">
+            <div class="card-header d-flex justify-content-between align-items-center p-3">
+              <a href="{% url 'show_event' event.id %}" class="btn btn-secondary btt-sm" style="margin-right: 5px;">powrót</a>
+              <h5 class="mb-0" style="color: black;">CHAT DLA WYDARZENIA POD NAZWĄ "{{event.name}}"</h5>
+              
+            </div>
+            {% for message in event.messages.all %}
+            <div class="card-body" data-mdb-perfect-scrollbar="true" style="position: relative;">
+  
+              <div class="d-flex flex-row justify-content-start">
+                {% if message.user.profile.profile_image %}  
+                <img src="{{ message.user.profile.profile_image.url }}"
+                  alt="avatar 1" class="rounded-circle d-flex align-self-start me-3 shadow-1-strong" width="50" height="50">
+                {% else %}
+                <img src="https://cdn.iconscout.com/icon/free/png-64/user-3604612-3005548.png"
+                  alt="avatar 1" class="d-flex align-self-start me-3 shadow-1-strong" width="50" height="50">
+                {% endif %}
+               
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between p-3">
+                      <p class="fw-bold mb-0">{{message.user}}</p>
+                      <p class="text-muted small mb-0" style="margin-left: 40px;"><i class="far fa-clock"></i>{{message.date}}</p>
+                    </div>
+                    <div class="card-body">
+                      <p class="mb-0">
+                        {{message.message}}
+                      </p>
+                    </div>
+                  </div>
+              </div>  
+            </div>
+            {% empty %}
+            <div class="notification">
+                <p>Brak Wiadomości</p>
+            </div>
+            {% endfor %}  
+            {% if user.is_authenticated %}
+              
+            <div class="card-footer text-muted d-flex justify-content-start align-items-center p-3">
+              
+              <div class="form-control form-control-lg" id="exampleFormControlInput1">
+                
+                <form method="POST" action="">
+                    {% csrf_token %}
+                    {{form}}
+                    
+                    <button class="btn btn-primary btn-rounded float-end" style="margin-top: 20px; width: 100%;" type="submit">Dodaj</button>
+                </form>
+              </div>  
+                  
+            {% else %}
+                <div class="alert alert-info" role="alert">
+                    Musisz być zalogowany. <a href="{% url 'signin' %}" class="alert-link">Zaloguj się</a>, aby dodać komentarz!
+                </div>
+            {% endif %}  
+            </div>
+          </div>
+  
+        </div>
+      </div>
+  
+    </div>
+</section>
+{% endblock %}
+

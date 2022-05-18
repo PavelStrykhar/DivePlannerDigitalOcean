@@ -11,7 +11,7 @@ from django.db.models import Count
 from django.views.generic.edit import CreateView
 from django.contrib.auth.models import User
 from django.contrib import messages
-from .models import Event, Participant, Venue
+from .models import Event, Participant, Venue, Chat
 from .forms import VenueForm, EventForm, EventFormAdmin, ParticipantForm, ChatForm
 from blog.views import Post
 from django.core.paginator import Paginator
@@ -64,22 +64,6 @@ def show_event(request, event_id):
         'sended': request.GET.get('sended', False),
         'mapbox_access_token': mapbox_access_token,
         })
-
-def send_message(request, event_id):
-    event = Event.objects.get(pk=event_id)
-    if request.method == 'POST':
-        form = ChatForm(request.POST)
-        if form.is_valid():
-            form.instance.user = request.user
-            form.instance.event = event
-            form.save()
-            return redirect('event:show_event', event_id=event.id)
-    else:
-        form = ChatForm()
-    context = {'event': event, 
-                'form': form}
-        
-    return render(request, 'event:show_event.html', context=context)
 
 def show_venue(request, venue_id):
     venue = Venue.objects.get(pk=venue_id)
@@ -153,21 +137,9 @@ def update_venue(request, venue_id):
         'form':form
         })
 
-# def is_attending(request, event_id):
-#     """set user as attending an event."""
-#     event = get_object_or_404(Event, id=event_id)
-#     attendance  = Participant(
-#         participant = request.user, 
-#         event = event,
-#         is_attending = True
-#         )
-#     attendance.save()
-#     return redirect('show_event')
-
 def update_event(request, event_id):
     event = Event.objects.get(pk=event_id)
     participant_list = Participant.objects.filter(event = event_id)
-    # gys = Participant.objects.filter(event_id=Event.pk)
     if request.user.is_superuser:
         form = EventFormAdmin(request.POST or None, instance=event)
         form.fields['participants'].queryset = Participant.objects.filter(event = event_id)
@@ -295,3 +267,18 @@ def venue_events(request, venue_id):
 		messages.success(request, ("W tym miejscu nie ma żadnych wydarzeń w tej chwili"))
 		return redirect('all_venues')
 
+def event_chat_window(request, event_id):
+    event = Event.objects.get(pk=event_id)
+    if request.method == 'POST':
+        form = ChatForm(request.POST)
+        if form.is_valid():
+            form.instance.user = request.user
+            form.instance.event = event
+            form.save()
+            return redirect('event_chat_window', event_id=event.id)
+    else:
+        form = ChatForm()
+    context = {'event': event, 
+                'form': form}
+        
+    return render(request, 'events/event_chat_window.html', context=context)

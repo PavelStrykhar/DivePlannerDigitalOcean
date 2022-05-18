@@ -20,8 +20,8 @@
                     
                     <a href="" class="published"><span class="name">{{ event.venue }}</span></a>
                     <time class="published" datetime="2015-11-01">{{ event.event_date }}</time>
-                    {% if user.profile %}
-                    <a href="{% url 'show_profile' post.author.profile.id %}" class="author"><span class="name">{{ event.manager }}</span><img src="#" alt=""/></a>               
+                    {% if event.manager.user.profile %}
+                    <a href="{% url 'show_profile' event.manager.user.profile.id %}" class="author"><span class="name">{{ event.manager }}</span><img src="#" alt=""/></a>               
                     {% else %}
                     <a href="" class="author"><span class="name">{{ event.manager }}</span><img src="#" alt=""/></a>
                     {% endif %}

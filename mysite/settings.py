@@ -51,8 +51,10 @@ INSTALLED_APPS = [
     'ckeditor',
     'ckeditor_uploader',
     
-    'chat',
-    'channels',
+    #'channels',
+    
+    
+    
 ]
 
 MIDDLEWARE = [
@@ -84,15 +86,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
-ASGI_APPLICATION = "mysite.asgi.application"
-CHANNEL_LAYERS = {
-    'default': {
-        'BACKEND': 'channels_redis.core.RedisChannelLayer',
-        'CONFIG': {
-            'hosts': [('127.0.0.1', 6379)],
-        },
-    },
-}
+#ASGI_APPLICATION = "mysite.asgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases

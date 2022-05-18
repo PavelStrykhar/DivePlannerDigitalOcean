@@ -96,7 +96,7 @@ class ChatForm(forms.ModelForm):
     class Meta:
         model = Chat
         fields = ['message']
-        labels = {'message':'Spytaj o czymś'}
+        labels = {'meesage':'Spytaj o czymś'}
         widgets = {
             'message': forms.TextInput(attrs={'class':'form-control'}),
         }

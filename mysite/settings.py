@@ -101,9 +101,9 @@ DATABASES = {
 #DATABASES = {
 #    'default': {
 #        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#        'NAME': 'diveplannerdb',
-#        'USER': 'user_db',
-#        'PASSWORD': '23031999p',
+#        'NAME': '',
+#        'USER': '',
+#        'PASSWORD': '',
 #        'HOST': 'localhost',
 #        'PORT': '',
 #    }
@@ -146,14 +146,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-#AWS_ACCESS_KEY_ID = 'JCFOR6L3YV635P4IQBOC'
-#AWS_SECRET_ACCESS_KEY = '9C30sUw1t/OAVn8OfreT1mcSPfb5pkPaY9QpB69zGY8'
-#AWS_STORAGE_BUCKET_NAME = 'open-dp-spaces'
-#AWS_S3_ENDPOINT_URL = 'https://fra1.digitaloceanspaces.com'
-#AWS_S3_OBJECT_PARAMETERS = {
-#    'CacheControl': 'max-age=86400',
-#}
-#AWS_LOCATION = 'open-dp-static'
+
 AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
@@ -250,7 +243,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'diveplanner.py@gmail.com'
-EMAIL_HOST_PASSWORD = 'wadkahokrydrtwpa'
+EMAIL_HOST_PASSWORD = 'kuku'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'DivePlanner Team <noreply@diveplanner.com>'
